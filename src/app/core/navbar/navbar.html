@@ -1,0 +1,22 @@
+<header class="navbar d-flex align-items-center justify-content-between">
+  <div class="welcome-text">
+    <h2>Welcome back, Admin</h2>
+    <span class="date">{{ currentDate | date:'fullDate' }}</span>
+  </div>
+  
+  <div class="actions d-flex align-items-center gap-16">
+    <mat-form-field appearance="outline" class="currency-selector" subscriptSizing="dynamic">
+      <mat-select [(ngModel)]="activeCurrency" (selectionChange)="onCurrencyChange($event.value)">
+        @for (currency of currencies; track currency.code) {
+          <mat-option [value]="currency.code">{{ currency.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button mat-icon-button class="notification-btn">
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <div class="profile-avatar d-flex align-items-center justify-content-center">
+      <mat-icon>person</mat-icon>
+    </div>
+  </div>
+</header>

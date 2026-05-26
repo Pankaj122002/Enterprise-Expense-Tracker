@@ -1,0 +1,83 @@
+<div class="form-container">
+  <div class="d-flex align-items-center mb-24 gap-16">
+    <button mat-icon-button routerLink="/expenses" color="primary">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="page-title mb-0">{{ isEditMode ? 'Edit Expense' : 'Add New Expense' }}</div>
+  </div>
+
+  <div class="card form-card">
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-16">
+      
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" placeholder="e.g. Weekly Groceries">
+        <mat-error *ngIf="expenseForm.get('title')?.hasError('required')">
+          Title is required.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="d-flex gap-24 form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Amount</mat-label>
+          <span matTextPrefix>{{ currencySymbol }}&nbsp;</span>
+          <input matInput type="number" formControlName="amount" placeholder="0.00">
+          <mat-error *ngIf="expenseForm.get('amount')?.hasError('required')">
+            Amount is required.
+          </mat-error>
+          <mat-error *ngIf="expenseForm.get('amount')?.hasError('min')">
+            Amount must be greater than 0.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="expenseForm.get('date')?.hasError('required')">
+            Date is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="d-flex gap-24 form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            @for (category of categories; track category) {
+              <mat-option [value]="category">{{category}}</mat-option>
+            }
+          </mat-select>
+          <mat-error *ngIf="expenseForm.get('category')?.hasError('required')">
+            Category is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Payment Method</mat-label>
+          <mat-select formControlName="paymentMethod">
+            @for (method of paymentMethods; track method) {
+              <mat-option [value]="method">{{method}}</mat-option>
+            }
+          </mat-select>
+          <mat-error *ngIf="expenseForm.get('paymentMethod')?.hasError('required')">
+            Payment method is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Notes (Optional)</mat-label>
+        <textarea matInput formControlName="notes" rows="3" placeholder="Add any additional details here..."></textarea>
+      </mat-form-field>
+
+      <div class="d-flex justify-content-end gap-16 mt-16">
+        <button mat-button type="button" routerLink="/expenses">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="expenseForm.invalid">
+          {{ isEditMode ? 'Update Expense' : 'Save Expense' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

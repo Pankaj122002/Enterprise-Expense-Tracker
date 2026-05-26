@@ -1,0 +1,86 @@
+<div class="dashboard-container">
+  <div class="page-title">Dashboard Overview</div>
+
+  <div class="stats-grid">
+    <div class="card stat-card primary-gradient">
+      <div class="stat-content">
+        <span class="stat-label">Total Expenses</span>
+        <h3 class="stat-value">{{ stats.total | currency: activeCurrency }}</h3>
+      </div>
+      <mat-icon class="stat-icon">account_balance</mat-icon>
+    </div>
+    
+    <div class="card stat-card accent-gradient">
+      <div class="stat-content">
+        <span class="stat-label">This Month</span>
+        <h3 class="stat-value">{{ stats.monthlyTotal | currency: activeCurrency }}</h3>
+      </div>
+      <mat-icon class="stat-icon">trending_down</mat-icon>
+    </div>
+    
+    <div class="card stat-card success-gradient">
+      <div class="stat-content">
+        <span class="stat-label">Highest Category</span>
+        <h3 class="stat-value">{{ stats.highestCategory }}</h3>
+      </div>
+      <mat-icon class="stat-icon">pie_chart</mat-icon>
+    </div>
+  </div>
+
+  <div class="charts-grid mt-24">
+    <div class="card chart-card">
+      <h4 class="card-title">Expenses by Category</h4>
+      <div class="chart-container">
+        @if (pieChartData.datasets[0].data.length > 0) {
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [options]="pieChartOptions"
+                  [type]="pieChartType">
+          </canvas>
+        } @else {
+          <div class="empty-chart">No data available</div>
+        }
+      </div>
+    </div>
+    
+    <div class="card chart-card">
+      <h4 class="card-title">Monthly Trend</h4>
+      <div class="chart-container">
+        @if (barChartData.datasets[0].data.length > 0) {
+          <canvas baseChart
+                  [data]="barChartData"
+                  [options]="barChartOptions"
+                  [type]="barChartType">
+          </canvas>
+        } @else {
+          <div class="empty-chart">No data available</div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-24">
+    <h4 class="card-title">Recent Transactions</h4>
+    <div class="transactions-list d-flex flex-column gap-16">
+      @for (txn of recentTransactions; track txn.id) {
+        <div class="transaction-item d-flex align-items-center justify-content-between">
+          <div class="txn-info d-flex align-items-center gap-16">
+            <div class="txn-icon d-flex align-items-center justify-content-center">
+              <mat-icon>receipt</mat-icon>
+            </div>
+            <div>
+              <div class="txn-title">{{ txn.title }}</div>
+              <div class="txn-date">{{ txn.date | date }} • {{ txn.category }}</div>
+            </div>
+          </div>
+          <div class="txn-amount">{{ txn.amount | currency: activeCurrency }}</div>
+        </div>
+      }
+      @if (recentTransactions.length === 0) {
+        <div class="empty-state text-center text-muted">
+          No transactions found.
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.mb-24 { margin-bottom: 24px; }
+.mb-0 { margin-bottom: 0 !important; }
+.mt-16 { margin-top: 16px; }
+
+.form-card {
+  padding: 32px;
+}
+
+.form-row {
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

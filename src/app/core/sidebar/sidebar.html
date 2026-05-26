@@ -1,0 +1,17 @@
+<div class="sidebar d-flex flex-column h-100">
+  <div class="brand d-flex align-items-center gap-16">
+    <mat-icon class="brand-icon">account_balance_wallet</mat-icon>
+    <span class="brand-text">ExpenseTracker</span>
+  </div>
+  
+  <nav class="nav-menu d-flex flex-column gap-8">
+    @for (item of navItems; track item.route) {
+      <a [routerLink]="item.route" 
+         routerLinkActive="active" 
+         class="nav-item d-flex align-items-center gap-16">
+        <mat-icon>{{item.icon}}</mat-icon>
+        <span>{{item.label}}</span>
+      </a>
+    }
+  </nav>
+</div>
