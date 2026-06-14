@@ -86,6 +86,14 @@ Once the compilation finishes, open your browser and navigate to:
 
 ---
 
+## 🌍 Deployment
+
+This application is deployed on **Cloudflare Pages**.
+
+**Live URL:** [https://expense-tracker-a8s.pages.dev/dashboard](https://expense-tracker-a8s.pages.dev/dashboard)
+
+---
+
 ## 🧪 E2E Testing with Cypress
 
 Cypress is set up to test the entire application workflow automatically by acting as a real user.
